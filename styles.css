@@ -1,3 +1,13 @@
+/* body{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} */
+
 *, *::before, *::after{
     box-sizing: border-box;
     margin: 0;
@@ -17,6 +27,7 @@ body{
     margin: 0 auto;
     border: 1px solid black;
     border-radius: 5px;
+    
 }
 
 .display{
@@ -24,7 +35,7 @@ body{
     border-bottom: 1px solid black;
     display: flex;
     flex-direction: column;
-    background-color: rgba(106, 106, 190, 0.534);
+    background-color: green;
     font-size: 40px;
 }
 
@@ -37,6 +48,7 @@ body{
     font-size: 25px;
     padding-top: 10px;
     padding-right: 20px;
+    
 }
 
 .displayTwo{
@@ -48,6 +60,7 @@ body{
     /* padding-bottom: 20px; */
     padding-right: 20px; 
     font-size: 40px;
+
 }
 /* .displayAfter{
     height: 100px;

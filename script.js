@@ -1,95 +1,120 @@
-function add(a, b){
-    let newA = parseFloat(a);
-    let newB = parseFloat(b);
-    return newA + newB;
-}
-
-function subtract(a, b){
-    return a - b;
-}
-
-function multiply(a, b){
-    return a*b;
-}
-
-function divide(a, b){
-    if(b != 0){
-    return a / b;
-    }else{
-        return "lol you can't divide by zero idiot"
-    }
-}
-
-function operate(operator, x,y){
-    if(operator === "+"){
-        return add(x, y);  
-    }else if(operator === "-"){
-        return subtract(x, y);
-    }else if(operator === "*"){
-        return multiply(x, y);
-    }else{
-        return divide(x, y);
-    }
-}
-
 const displayArea = document.getElementById("display");
 const displayAreaOne = document.getElementById("displayOne");
 const displayAreaTwo = document.getElementById("displayTwo");
-const buttonsToDisplay = document.getElementsByClassName('btn');
+const numberButtons= document.getElementsByClassName('btn');
 const operators = document.getElementsByClassName('btnOperator')
 const equals = document.getElementById('btnEquals');
-
-let valueOfDisplay = "";
-
-for(let i = 0; i < buttonsToDisplay.length; i++){
-    buttonsToDisplay[i].addEventListener('click', function(){
-        displayAreaTwo.innerText += buttonsToDisplay[i].innerHTML;
-        valueOfDisplay += buttonsToDisplay[i].innerHTML;
-        console.log(valueOfDisplay)
-    });
-}
-
-let logValueOne;
+const decimal = document.getElementById('btnDecimal');
+const clear = document.getElementById('clear');
+const deleteBtn = document.getElementById('delete');
+let valueOne = "";
+let valueTwo;
 let operator;
 
-for(let i = 0; i < operators.length; i++){
-    operators[i].addEventListener('click', function(){
-        // probably change class name for the display text
-        //to get it to move to the top 
-
-        if(valueOfDisplay != ""){
-            logValueOne = valueOfDisplay; // in the operate() this will
-                                    // make logValueOne = x
-            console.log(logValueOne)
-            displayAreaOne.innerText += displayAreaTwo.innerText;
-            operator = this.innerText;   
-            displayAreaOne.innerText += " " + operator + " ";
-            displayAreaTwo.innerText = "";
-            valueOfDisplay = ""; //reset the value so we can get the next
-                                // number for y 
-
-            
-            // displayArea.className = "displayAfter";
-        }
-    })
+//***************** NUMBER BUTTONS ************************ */
+for(let i = 0; i < numberButtons.length; i++){
+  numberButtons[i].addEventListener('click', function(){
+    if(displayAreaTwo.innerHTML.length < 14){
+		displayAreaTwo.innerHTML += this.innerHTML;
+	}
+  })
 }
 
-let logValueTwo;
+//***************** OPERATOR BUTTONS ************************ */
+for(let i = 0; i < operators.length; i++){
+	operators[i].addEventListener('click', function(){
+		
+		if(displayAreaTwo.innerHTML != "" && displayAreaOne.innerHTML == ""){
+			operator = this.innerHTML;
+			displayAreaOne.innerHTML = `${displayAreaTwo.innerHTML} ${operator}`;
+			displayAreaTwo.innerHTML = "";
+		}else{
+			valueOne = parseFloat(displayAreaOne.innerHTML);
+			valueTwo = parseFloat(displayAreaTwo.innerHTML);
+			let answer = operate(operator, valueOne, valueTwo).toFixed(2);
+			operator = this.innerHTML;
+			displayAreaOne.innerHTML = `${answer} ${operator}`
+			displayAreaTwo.innerHTML = "";
+		}
+	})	
+}
+
+//***************** EQUALS BUTTON ************************ */
 equals.addEventListener('click', function(){
-    logValueTwo = valueOfDisplay;
-    displayAreaOne.innerText += " " + displayAreaTwo.innerText;
-    displayAreaTwo.innerText = operate(operator, logValueOne, logValueTwo);
-    valueOfDisplay = displayAreaTwo.innerText;
+	if(displayAreaTwo.innerHTML != "" && displayAreaOne.innerHTML !=""){
+	
+		valueOne = parseFloat(displayAreaOne.innerHTML);
+		valueTwo = parseFloat(displayAreaTwo.innerHTML);
+		console.log(operator, valueOne, valueTwo)
+		
+		
+		let answer = operate(operator, valueOne, valueTwo);
+		// check if answer is decimal, if it is then .toFixed(2);
+		if(answer % 1 != 0){
+			answer = answer.toFixed(2);
+		}
+		
+		displayAreaOne.innerHTML = "";
+		displayAreaTwo.innerHTML = `${answer}`
+	}
+})
+
+//***************** DECIMAL BUTTON ************************ */
+decimal.addEventListener('click', function(){
+	
+	console.log(displayAreaTwo.innerHTML.length)
+	let string = displayAreaTwo.innerHTML.toString();
+	let hasDecimal = string.includes('.');
+	if(hasDecimal === false && displayAreaTwo.innerHTML.length < 14){
+		displayAreaTwo.innerHTML += this.innerHTML;
+	}
 })
 
 
-// logValueOne = x
-// log Value Two = y 
-// operator = operator
+//***************** CLEAR BUTTON ************************ */
+clear.addEventListener('click', function(){
+	displayAreaOne.innerHTML = "";
+	displayAreaTwo.innerHTML = "";
+})
 
+//***************** DELETE BUTTON ************************ */
+deleteBtn.addEventListener('click', function(){
+	console.log(displayAreaOne.innerHTML)
+		let newNum = displayAreaTwo.innerHTML.slice(0, -1);
+		displayAreaTwo.innerHTML = newNum;
+	
+})
 
-
-
-
-
-
+function add(a, b){
+	let newA = parseFloat(a);
+	let newB = parseFloat(b);
+	return newA + newB;
+  }
+  
+  function subtract(a, b){
+	return a - b;
+  }
+  
+  function multiply(a, b){
+	return a*b;
+  }
+  
+  function divide(a, b){
+	if(b != 0){
+	return a / b;
+	}else{
+		alert("why are you trying to break my program >:(")
+	}
+  }
+  
+  function operate(operator, x,y){
+	if(operator === "+"){
+		return add(x, y);  
+	}else if(operator === "-"){
+		return subtract(x, y);
+	}else if(operator === "*"){
+		return multiply(x, y);
+	}else{
+		return divide(x, y);
+	}
+  }
