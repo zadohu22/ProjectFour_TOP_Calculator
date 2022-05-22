@@ -28,13 +28,19 @@ for(let i = 0; i < operators.length; i++){
 			operator = this.innerHTML;
 			displayAreaOne.innerHTML = `${displayAreaTwo.innerHTML} ${operator}`;
 			displayAreaTwo.innerHTML = "";
-		}else{
+            console.log("if works")
+		}else if(displayAreaTwo.innerHTML != ""){
 			valueOne = parseFloat(displayAreaOne.innerHTML);
 			valueTwo = parseFloat(displayAreaTwo.innerHTML);
-			let answer = operate(operator, valueOne, valueTwo).toFixed(2);
+			let answer = operate(operator, valueOne, valueTwo)
+            // check if answer is decimal, if it is then .toFixed(2);
+		    if(answer % 1 != 0){
+			answer = answer.toFixed(2);
+		}
 			operator = this.innerHTML;
 			displayAreaOne.innerHTML = `${answer} ${operator}`
 			displayAreaTwo.innerHTML = "";
+            console.log("this is the else")
 		}
 	})	
 }
