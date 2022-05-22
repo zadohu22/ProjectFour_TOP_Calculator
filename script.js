@@ -24,12 +24,12 @@ for(let i = 0; i < numberButtons.length; i++){
 for(let i = 0; i < operators.length; i++){
 	operators[i].addEventListener('click', function(){
 		
-		if(displayAreaTwo.innerHTML != "" && displayAreaOne.innerHTML == ""){
+		if(displayAreaTwo.innerHTML != "" && displayAreaOne.innerHTML == "" && displayAreaTwo.innerHTML != "."){
 			operator = this.innerHTML;
 			displayAreaOne.innerHTML = `${displayAreaTwo.innerHTML} ${operator}`;
 			displayAreaTwo.innerHTML = "";
             console.log("if works")
-		}else if(displayAreaTwo.innerHTML != ""){
+		}else if(displayAreaTwo.innerHTML != "" && displayAreaTwo.innerHTML != "."){
 			valueOne = parseFloat(displayAreaOne.innerHTML);
 			valueTwo = parseFloat(displayAreaTwo.innerHTML);
 			let answer = operate(operator, valueOne, valueTwo)
